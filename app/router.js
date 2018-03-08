@@ -9,6 +9,7 @@ const Router = EmberRouter.extend({
 Router.map(function() {
   this.route('scoreboard-interface');
   this.route('competition-list-interface');
+  this.route('data-entry-interface');
 });
 
 export default Router;
