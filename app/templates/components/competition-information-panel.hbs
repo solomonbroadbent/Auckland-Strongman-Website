@@ -4,8 +4,8 @@
     <!-- Using a float with the button is a bit of a hack but works well enough responsively -->
     <div class="panel-title">
       Competition Information
-      <button class="btn btn-default pull-right">
-        <span class="glyphicon glyphicon-pencil"></span>
+      <button class="btn btn-default pull-right" {{action 'toggleEditMode'}}>
+        <span class="glyphicon {{if inEditMode 'glyphicon-floppy-disk' 'glyphicon-pencil'}}"></span>
       </button>
     </div>
   </div>
@@ -18,7 +18,7 @@
         </span>
       </h4>
       <div class="input-lg">
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" disabled={{notInEditMode}}>
       </div>
     </li>
     <li class="list-group-item">
@@ -31,17 +31,21 @@
         <div class="btn-group" role="group" aria-label="First group">
           <button type="button" class="btn btn-default">
             1
-            <span class="glyphicon glyphicon-remove"></span>
+            {{#if inEditMode}}
+              <span class="glyphicon glyphicon-remove"></span>
+            {{/if}}
           </button>
           <button type="button" class="btn btn-default">2</button>
           <button type="button" class="btn btn-default">3</button>
           <button type="button" class="btn btn-default">4</button>
         </div>
-        <div class="btn-group" role="group" aria-label="Third group">
-          <button type="button" class="btn btn-default">
-            <span class="glyphicon glyphicon-plus"></span>
-          </button>
-        </div>
+        {{#if inEditMode}}
+          <div class="btn-group" role="group" aria-label="Third group">
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-plus"></span>
+            </button>
+          </div>
+        {{/if}}
       </div>
     </li>
     <li class="list-group-item">
@@ -51,7 +55,7 @@
         </span>
       </h4>
       <div class="input-lg">
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" disabled={{notInEditMode}}>
       </div>
     </li>
     <li class="list-group-item">
@@ -61,7 +65,7 @@
         </span>
       </h4>
       <div class="input-lg">
-        <input type="text" class="form-control">
+        <input type="text" class="form-control" disabled={{notInEditMode}}>
       </div>
     </li>
   </ul>
