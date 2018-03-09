@@ -13,14 +13,6 @@
 
       <div class="collapse navbar-collapse" id="main-navbar">
         <ul class="nav navbar-nav">
-          <li>
-            <div class="btn-group-toggle navbar-form" data-toggle="buttons">
-              <label class="btn btn-default active">
-                <input type="checkbox" checked autocomplete="off">
-                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
-              </label>
-            </div>
-          </li>
           <li class="navbar-text">
             Competition name
           </li>
@@ -30,16 +22,26 @@
           <li class="navbar-text">
             ##/##/##
           </li>
+          <li>
             <div class="btn-group btn-group-toggle navbar-form" data-toggle="buttons">
-              <label class="btn btn-default active">
+              {{#link-to 'data-entry-interface' tagName='label' class='btn btn-default'}}
                 <input class="form-control" type="radio" name="options" id="option1" autocomplete="off" checked> <span
                 class="glyphicon glyphicon-pencil"></span>
-              </label>
-              <label class="btn btn-default">
+              {{/link-to}}
+              {{#link-to 'scoreboard-interface' tagName='label' class='btn btn-default'}}
                 <input class="form-control" type="radio" name="options" id="option2" autocomplete="off"> <span
                 class="glyphicon glyphicon-eye-open"></span>
-              </label>
+              {{/link-to}}
             </div>
+          </li>
+          <li>
+            <div class="btn-group-toggle navbar-form" data-toggle="buttons">
+              {{#link-to 'competition-list-interface' tagName='label' class='btn btn-default'}}
+                <input type="checkbox" checked autocomplete="off">
+                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+              {{/link-to}}
+            </div>
+          </li>
             {{!#link-to 'index' tagName="li"}}<!--<a href="">Home</a>-->{{!/link-to}}
         </ul>
       </div><!-- /.navbar-collapse -->
