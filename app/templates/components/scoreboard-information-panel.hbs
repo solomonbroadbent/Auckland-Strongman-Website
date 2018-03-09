@@ -4,41 +4,62 @@
     <!-- Using a float with the button is a bit of a hack but works well enough responsively -->
     <div class="panel-title">
       Competition Information
-      <button class="btn btn-default pull-right">
-        <span class="glyphicon glyphicon-pencil"></span>
+      <button class="btn btn-default pull-right" {{action 'toggleEditMode'}}>
+        <span class="glyphicon {{if inEditMode 'glyphicon-floppy-disk' 'glyphicon-pencil'}}"></span>
       </button>
     </div>
   </div>
   <!--<div class="panel-body">-->
-    <table class="table table-hover">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Weight</th>
-        <th>Points</th>
-        <th>Placing</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr>
-        <td>Eddie</td>
-        <td>120</td>
-        <td>#</td>
-        <th>1st</th>
-      </tr>
-      <tr>
-        <td>James</td>
-        <td>120</td>
-        <td>#</td>
-        <th>2rd</th>
-      </tr>
-      <tr>
-        <td>Bob</td>
-        <td>120</td>
-        <td>#</td>
-        <th>3rd</th>
-      </tr>
-      </tbody>
-    </table>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th class="col-lg-6">Name</th>
+      <th class="col-lg-4">Weight</th>
+      <th>Points</th>
+      <th>Placing</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>
+        <input type="text" class="form-control" disabled={{notInEditMode}}>
+      </td>
+      <td>
+        <div class="input-group">
+          <input type="text" class="form-control" disabled={{notInEditMode}}>
+          <span class="input-group-addon">kG</span>
+        </div>
+      </td>
+      <td>#</td>
+      <th>1st</th>
+    </tr>
+    <tr>
+      <td>
+        <input type="text" class="form-control" disabled={{notInEditMode}}>
+      </td>
+      <td>
+        <div class="input-group">
+          <input type="text" class="form-control" value="123" disabled={{notInEditMode}}>
+          <span class="input-group-addon">kG</span>
+        </div>
+      </td>
+      <td>#</td>
+      <th>2rd</th>
+    </tr>
+    <tr>
+      <td>
+        <input type="text" class="form-control" disabled={{notInEditMode}}>
+      </td>
+      <td>
+        <div class="input-group">
+          <input type="text" class="form-control" disabled={{notInEditMode}}>
+          <span class="input-group-addon">kG</span>
+        </div>
+      </td>
+      <td>#</td>
+      <th>3rd</th>
+    </tr>
+    </tbody>
+  </table>
   <!--</div>-->
 </div>
