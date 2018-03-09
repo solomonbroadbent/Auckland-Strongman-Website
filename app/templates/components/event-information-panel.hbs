@@ -2,8 +2,8 @@
   <div class="panel-heading clearfix">
     <div class="panel-title">
       Events for day #
-      <button class="btn btn-default pull-right">
-        <span class="glyphicon glyphicon-pencil"></span>
+      <button class="btn btn-default pull-right" {{action 'toggleEditMode'}}>
+        <span class="glyphicon {{if inEditMode 'glyphicon-floppy-disk' 'glyphicon-pencil'}}"></span>
       </button>
     </div>
   </div>
@@ -17,56 +17,58 @@
       </div>
     </div>-->
     <!-- New event sub-panel -->
-    <div class="panel panel-default container-fluid">
-      <div class="panel-heading row">
-        <div class="col-lg-4">
-          <div class=" input-group">
-            <span class="input-group-addon" id="basic-addon3">Event name</span>
-            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+    {{#if inEditMode}}
+      <div class="panel panel-default container-fluid">
+        <div class="panel-heading row">
+          <div class="col-lg-4">
+            <div class=" input-group">
+              <span class="input-group-addon" id="basic-addon3">Event name</span>
+              <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+            </div>
           </div>
-        </div>
-        <div class="col-lg-2">
-          Event type1
-        </div>
-        <div class="col-lg-offset-4 col-lg-2">
-          <button class="btn btn-default">
-            <span class="glyphicon glyphicon-floppy-disk"></span>
-          </button>
-        </div>
-      </div>
-      <div class="panel-body">
-        <div class="row">
-          <div class="dropdown">
-            <button class="col-lg-12 btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
-                    data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="true">
-              Choose event type
-              <span class="caret"></span>
+          <div class="col-lg-2">
+            Event type1
+          </div>
+          <div class="col-lg-offset-4 col-lg-2">
+            <button class="btn btn-default">
+              <span class="glyphicon glyphicon-plus"></span>
             </button>
-            <ul class="col-lg-12 dropdown-menu" aria-labelledby="dropdownMenu1">
-              <li class="dropdown-header">For events where the score is based off the most weight lifted</li>
-              <li><a href="#">Most weight</a></li>
-              <li role="separator" class="divider"></li>
-              <li class="dropdown-header">For events where the score is based off the least time taken</li>
-              <li><a href="#">Least time</a></li>
-              <li role="separator" class="divider"></li>
-              <li class="dropdown-header">For events where the score is based off the most weight lifted</li>
-              <li><a href="#">Most repetitions</a></li>
-              <li role="separator" class="divider"></li>
-              <li class="dropdown-header">For events where the score is based off the most weight lifted</li>
-              <li><a href="#">Furthest distance</a></li>
-              <li role="separator" class="divider"></li>
-              <li class="dropdown-header">
-                For events where the score is based off the achieving the fastest
-                repetitions. Completing the required repetitions in any time trumps faster times where the full
-                repetitions aren't completed
-              </li>
-              <li><a href="#">Fastest repetitions</a></li>
-            </ul>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="dropdown">
+              <button class="col-lg-12 btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                      data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="true">
+                Choose event type
+                <span class="caret"></span>
+              </button>
+              <ul class="col-lg-12 dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li class="dropdown-header">For events where the score is based off the most weight lifted</li>
+                <li><a href="#">Most weight</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">For events where the score is based off the least time taken</li>
+                <li><a href="#">Least time</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">For events where the score is based off the most weight lifted</li>
+                <li><a href="#">Most repetitions</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">For events where the score is based off the most weight lifted</li>
+                <li><a href="#">Furthest distance</a></li>
+                <li role="separator" class="divider"></li>
+                <li class="dropdown-header">
+                  For events where the score is based off the achieving the fastest
+                  repetitions. Completing the required repetitions in any time trumps faster times where the full
+                  repetitions aren't completed
+                </li>
+                <li><a href="#">Fastest repetitions</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    {{/if}}
     <!-- Event sub-panels -->
     <!-- TODO: try heading changing to inline forms -->
     <div class="panel panel-default container-fluid">
@@ -74,7 +76,8 @@
         <div class="col-lg-4">
           <div class=" input-group">
             <span class="input-group-addon" id="basic-addon3">Event name</span>
-            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+            <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
+                   disabled={{notInEditMode}}>
           </div>
         </div>
         <div class="col-lg-2">
@@ -82,11 +85,14 @@
         </div>
         <div class="col-lg-offset-4 col-lg-2">
           <button class="btn btn-default">
-            <span class="glyphicon glyphicon-pencil"></span>
+            <!-- The free glyphicon license somewhat ironically doesn't allow for the unlock symbol -->
+            <span class="glyphicon glyphicon-check"></span>
           </button>
-          <button class="btn btn-warning">
-            <span class="glyphicon glyphicon-remove"></span>
-          </button>
+          {{#if inEditMode}}
+            <button class="btn btn-warning">
+              <span class="glyphicon glyphicon-remove"></span>
+            </button>
+          {{/if}}
         </div>
       </div>
       <table class="table table-hover">
