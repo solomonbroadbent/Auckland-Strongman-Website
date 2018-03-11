@@ -1,0 +1,19 @@
+<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+  <div class="btn-group" role="group" aria-label="First group">
+    {{#each days as |day|}}
+      <button type="button" class="btn btn-default">
+        {{day.number}}
+        {{#if inEditMode}}
+          <span class="glyphicon glyphicon-remove"></span>
+        {{/if}}
+      </button>
+    {{/each}}
+  </div>
+  {{#if inEditMode}}
+    <div class="btn-group" role="group" aria-label="Third group">
+      <button type="button" class="btn btn-default" {{action 'addNewDay'}}>
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+    </div>
+  {{/if}}
+</div>
