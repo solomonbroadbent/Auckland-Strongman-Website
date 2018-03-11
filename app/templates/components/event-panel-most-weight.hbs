@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="col-lg-2">
-      Split
+      Most weight
     </div>
     <div class="col-lg-offset-4 col-lg-2">
       <button class="btn btn-default" {{action 'toggleDataEntryMode'}}>
@@ -28,11 +28,8 @@
       <th class="col-lg-4">
         Athlete
       </th>
-      <th class="col-lg-3">
-        Repetitions
-      </th>
-      <th class="col-lg-3">
-        Time in seconds
+      <th class="col-lg-offset-3 col-lg-3">
+        Weight in kilograms
       </th>
       <th class="col-lg-2">
         Points
@@ -50,11 +47,9 @@
       <td>
         <input type="text" class="form-control" disabled={{notInDataEntryMode}}>
       </td>
-      <td>
-        <input type="text" class="form-control" disabled={{notInDataEntryMode}}>
-      </td>
     </tr>
     </tbody>
   </table>
 </div>
+{{yield}}
 {{yield}}
