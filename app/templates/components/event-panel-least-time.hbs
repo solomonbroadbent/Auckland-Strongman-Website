@@ -1,0 +1,148 @@
+<div class="panel panel-default container-fluid">
+  <div class="panel-heading row">
+    <div class="col-lg-4">
+      <div class=" input-group">
+        <span class="input-group-addon" id="basic-addon3">Event name</span>
+        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
+               disabled={{notInEditMode}}>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      Fastest repetitions
+    </div>
+    <div class="col-lg-offset-4 col-lg-2">
+      <button class="btn btn-default" {{action 'toggleDataEntryMode'}}>
+        <!-- The free glyphicon license somewhat ironically doesn't allow for the unlock symbol -->
+        <span class="glyphicon {{if inDataEntryMode 'glyphicon-check' 'glyphicon-edit'}}"></span>
+      </button>
+      {{#if inEditMode}}
+        <button class="btn btn-warning">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      {{/if}}
+    </div>
+  </div>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th class="col-lg-4">
+        Athlete
+      </th>
+      <th class="col-lg-3">
+        Repetitions
+      </th>
+      <th class="col-lg-3">
+        Time in seconds
+      </th>
+      <th class="col-lg-2">
+        Points
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>
+        Bob
+      </th>
+      <td>
+        <input type="text" class="form-control" disabled={{notInDataEntryMode}}>
+      </td>
+      <td>
+        <input type="text" class="form-control" disabled={{notInDataEntryMode}}>
+      </td>
+      <td>
+        <input type="text" class="form-control" disabled={{notInDataEntryMode}}>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Delete this one -->
+<div class="panel panel-default container-fluid">
+  <div class="panel-heading row">
+    <div class="col-lg-4">
+      <div class=" input-group">
+        <span class="input-group-addon" id="basic-addon3">Event name</span>
+        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
+               disabled={{notInEditMode}}>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      Fastest repetitions
+    </div>
+    <div class="col-lg-offset-4 col-lg-2">
+      <button class="btn btn-default">
+        <!-- The free glyphicon license somewhat ironically doesn't allow for the unlock symbol -->
+        <span class="glyphicon glyphicon-check"></span>
+      </button>
+      {{#if inEditMode}}
+        <button class="btn btn-warning">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      {{/if}}
+    </div>
+  </div>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>
+        Athlete
+      </th>
+      <th>
+        Repetitions
+      </th>
+      <th>
+        Time in seconds
+      </th>
+      <th>
+        Points
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <th>
+        Bob
+      </th>
+      <td>
+        8
+      </td>
+      <td>
+        40.01
+      </td>
+      <td>
+        2
+      </td>
+    </tr>
+    <tr>
+      <th>
+        James
+      </th>
+      <td>
+        8
+      </td>
+      <td>
+        38.02
+      </td>
+      <td>
+        3
+      </td>
+    </tr>
+    <tr>
+      <th>
+        Eddie
+      </th>
+      <td>
+        7
+      </td>
+      <td>
+        36.56
+      </td>
+      <td>
+        1
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+{{yield}}
