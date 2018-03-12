@@ -1,0 +1,55 @@
+<div class="panel panel-default container-fluid">
+  <div class="panel-heading row">
+    <div class="col-lg-4">
+      <div class=" input-group">
+        <span class="input-group-addon" id="basic-addon3">Event name</span>
+        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value={{eventName}}>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      {{selectedEventName}}
+    </div>
+    <div class="col-lg-offset-4 col-lg-2">
+      <button class="btn btn-default" {{action 'addNewEvent'}}>
+        <span class="glyphicon glyphicon-plus"></span>
+      </button>
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="dropdown">
+        <button class="col-lg-12 btn btn-default dropdown-toggle" type="button" id="dropdownMenu1"
+                data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="true">
+          Choose event type
+          <span class="caret"></span>
+        </button>
+        <ul class="col-lg-12 dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li class="dropdown-header">For events where the score is based off the most weight lifted</li>
+          <li><a {{action 'setSelectedEventType' 'mostWeight'}}>Most
+            weight</a></li>
+          <li role="separator" class="divider"></li>
+          <li class="dropdown-header">For events where the score is based off the least time taken</li>
+          <li><a {{action 'setSelectedEventType' 'leastTime'}}>Least time</a></li>
+          <li role="separator" class="divider"></li>
+          <li class="dropdown-header">For events where the score is based off the most weight lifted</li>
+          <li><a {{action 'setSelectedEventType' 'mostRepetitions'}}>Most repetitions</a></li>
+          <li role="separator" class="divider"></li>
+          <li class="dropdown-header">For events where the score is based off the most weight lifted</li>
+          <li ><a {{action 'setSelectedEventType' 'furthestDistance'}}>Furthest distance</a></li>
+          <li role="separator" class="divider"></li>
+          <li class="dropdown-header">
+            For events where the score is based off the achieving the fastest
+            repetitions. Completing the required repetitions in any time trumps faster times where the full
+            repetitions aren't completed
+          </li>
+          <li><a {{action 'setSelectedEventType' 'split'}}>split</a></li>
+          <li role="separator" class="divider"></li>
+          <li class="dropdown-header">For event based on the most time taken</li>
+          <li><a {{action 'setSelectedEventType' 'mostTime'}}>Most time</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{{yield}}
