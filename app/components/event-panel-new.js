@@ -13,20 +13,9 @@ export default Component.extend({
     {ID: 'mostRepetitions', name: 'Most Repetitions'},
   ],
   selectedEvent: Ember.computed('selectedEventTypeID', function() {
-    //TODO: Check if a fail here returns something other than null
-    /*let result = this.get('eventTypes').reduce((result, event) => {
-      if (event.ID === (this.get('selectedEventTypeID'))) result = event;
-    });
-    return result;*/
-    let eventTypes = this.get('eventTypes');
-    let result = null;
-    let that = this;
-    eventTypes.forEach(function (event) {
-      if(event.ID === that.get('selectedEventTypeID')) {
-        result = event;
-      }
-    });
-    return result;
+    return this.get('eventTypes').filter((event) => {
+      if (event.ID === (this.get('selectedEventTypeID'))) return event;
+    })[0];
   }),
   selectedEventName: Ember.computed('selectedEvent', function() {
     return this.get('selectedEvent').name;
@@ -45,16 +34,14 @@ export default Component.extend({
     setSelectedEventType(eventID) {
       //TODO: Find a way to implement this with just a function instead of a computed property
       //The event needs to be set first as the selectedEventTypeIDIsValid relies on the field being set
-      alert('new ID: ' + eventID);
       this.set('selectedEventTypeID', eventID);
-      if (this.get('selectedEventTypeIDIsValid') === true) this.set('selectedEventTypeID', null);
+      // if (this.get('selectedEventTypeIDIsValid') === true) this.set('selectedEventTypeID', eventID);
     },
     addNewEvent() {
       if (this.get('newEventIsReady') === true) {
-        alert('Name ' + this.get('selectedEventName'));
         this.get('events').pushObject({
-          eventName: this.get('eventName'),
-          eventType: this.get('selectedEventName'),
+          name: this.get('eventName'),
+          type: this.get('selectedEventName'),
         });
       }
     }
