@@ -6,6 +6,23 @@ module.exports = function(environment) {
     environment,
     rootURL: '/',
     locationType: 'auto',
+
+    firebase: {
+      apiKey: 'AIzaSyA0fM48-OnVVt9A0KAi3X0Jch7sPVkjTGQ',
+      authDomain: 'auckland-strongman-website.firebaseapp.com',
+      databaseURL: 'https://auckland-strongman-website.firebaseio.com',
+      projectId: 'auckland-strongman-website',
+      storageBucket: 'auckland-strongman-website.appspot.com',
+      messagingSenderId: '533895325095'
+    },
+
+    // if using ember-cli-content-security-policy
+    contentSecurityPolicy: {
+      'script-src': "'self' 'unsafe-eval' apis.google.com",
+      'frame-src': "'self' https://*.firebaseapp.com",
+      'connect-src': "'self' wss://*.firebaseio.com https://*.googleapis.com"
+    },
+
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
