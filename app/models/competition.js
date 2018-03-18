@@ -6,6 +6,7 @@ export default DS.Model.extend({
   refereeName: DS.attr('string'),
   scorerName: DS.attr('string'),
   days: DS.hasMany('day'),
+  athletes: DS.hasMany('athlete'),
   startDate: computed('days', function() {
     //Find earliest date
   }),
