@@ -20,6 +20,35 @@
     </tr>
     </thead>
     <tbody>
+    {{#if inEditMode}}
+      <tr>
+        <td>
+          <input type="text" class="form-control" value={{newAthleteName}} disabled={{notInEditMode}}>
+        </td>
+        <td>
+          <div class="input-group">
+            <input type="text" class="form-control" value={{newAthleteWeight}} disabled={{notInEditMode}}>
+            <span class="input-group-addon">kG</span>
+          </div>
+        </td>
+        <!-- This empty td tag exists to keep the table hovering and formatting correct -->
+        <td></td>
+        <td>
+          <button class="btn btn-default" {{action 'saveNewAthlete'}}>
+            <span class="glyphicon-plus"></span>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Current Athletes
+        </th>
+        <!-- These empty td tags exist to keep the table hovering and formatting correct -->
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    {{/if}}
     <tr>
       <td>
         <input type="text" class="form-control" disabled={{notInEditMode}}>
