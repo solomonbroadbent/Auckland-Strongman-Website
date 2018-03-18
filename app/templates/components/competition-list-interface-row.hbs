@@ -17,6 +17,10 @@
       <button class="btn btn-warning pull-right">
         <span class="glyphicon glyphicon-remove"></span>
       </button>
+    {{else}}
+      <button class="btn btn-success pull-right" {{action 'sendUserToCompetition'}}>
+        <span class="glyphicon glyphicon-log-in"></span>
+      </button>
     {{/if}}
   </td>
 </tr>
