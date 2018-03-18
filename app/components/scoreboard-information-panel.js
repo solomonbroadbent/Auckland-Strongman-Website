@@ -5,6 +5,7 @@ export default Component.extend({
   notInEditMode: Ember.computed.not('inEditMode'),
   newAthleteName: 'a',
   newAthleteWeight: 0,
+  rows: [{athlete: {name: 'a', weight: 0}, points: 0, position: '1st'}, {athlete: {name: 'a', weight: 0}, points: 0, position: '1st'}],
   actions: {
     toggleEditMode() {
       this.toggleProperty('inEditMode');

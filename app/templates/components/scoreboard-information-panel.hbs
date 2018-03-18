@@ -49,7 +49,11 @@
         <td></td>
       </tr>
     {{/if}}
-    <tr>
+    {{#each rows as |row|}}
+      {{scoreboard-information-panel-row athlete = row.athlete points = row.points position = row.position }}
+    {{/each}}
+    <!-- Old rows -->
+    <!--<tr>
       <td>
         <input type="text" class="form-control" disabled={{notInEditMode}}>
       </td>
@@ -87,7 +91,7 @@
       </td>
       <td>#</td>
       <th>3rd</th>
-    </tr>
+    </tr>-->
     </tbody>
   </table>
   <!--</div>-->
