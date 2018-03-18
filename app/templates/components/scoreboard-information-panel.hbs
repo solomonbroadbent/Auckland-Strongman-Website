@@ -9,7 +9,6 @@
       </button>
     </div>
   </div>
-  <!--<div class="panel-body">-->
   <table class="table table-hover">
     <thead>
     <tr>
@@ -23,11 +22,11 @@
     {{#if inEditMode}}
       <tr>
         <td>
-          <input type="text" class="form-control" value={{newAthleteName}} disabled={{notInEditMode}}>
+          {{input type="text" class="form-control" value=newAthleteName}}
         </td>
         <td>
           <div class="input-group">
-            <input type="text" class="form-control" value={{newAthleteWeight}} disabled={{notInEditMode}}>
+            {{input type="text" class="form-control" value=newAthleteWeight}}
             <span class="input-group-addon">kG</span>
           </div>
         </td>
@@ -52,47 +51,6 @@
     {{#each rows as |row|}}
       {{scoreboard-information-panel-row athlete = row.athlete points = row.points position = row.position }}
     {{/each}}
-    <!-- Old rows -->
-    <!--<tr>
-      <td>
-        <input type="text" class="form-control" disabled={{notInEditMode}}>
-      </td>
-      <td>
-        <div class="input-group">
-          <input type="text" class="form-control" disabled={{notInEditMode}}>
-          <span class="input-group-addon">kG</span>
-        </div>
-      </td>
-      <td>#</td>
-      <th>1st</th>
-    </tr>
-    <tr>
-      <td>
-        <input type="text" class="form-control" disabled={{notInEditMode}}>
-      </td>
-      <td>
-        <div class="input-group">
-          <input type="text" class="form-control" value="123" disabled={{notInEditMode}}>
-          <span class="input-group-addon">kG</span>
-        </div>
-      </td>
-      <td>#</td>
-      <th>2rd</th>
-    </tr>
-    <tr>
-      <td>
-        <input type="text" class="form-control" disabled={{notInEditMode}}>
-      </td>
-      <td>
-        <div class="input-group">
-          <input type="text" class="form-control" disabled={{notInEditMode}}>
-          <span class="input-group-addon">kG</span>
-        </div>
-      </td>
-      <td>#</td>
-      <th>3rd</th>
-    </tr>-->
     </tbody>
   </table>
-  <!--</div>-->
 </div>
