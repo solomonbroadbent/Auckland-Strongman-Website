@@ -6,10 +6,10 @@ export default DS.Model.extend({
   scorerName: DS.attr('string'),
   days: DS.hasMany('day'),
   athletes: DS.hasMany('athlete'),
-  startDate: computed('days', function() {
-    //Find earliest date
+  startDate: Ember.computed('days', function() {
+    return 'start date';
   }),
-  endDate: computed('days', function() {
-    //Find latest date
+  endDate: Ember.computed('days', function() {
+    return 'end date';
   }),
 });

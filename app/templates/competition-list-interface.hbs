@@ -54,8 +54,12 @@
         <table class="table table-hover">
           <tbody>
           {{#each competitions as |competition|}}
-            {{competition-list-interface-row inEditMode=inEditMode competitionStartDate='15/11/1998'
-            competitionEndDate='18/03/2018' competitionName='test' competitionID=1}}
+            {{competition-list-interface-row
+              inEditMode=inEditMode
+              competitionStartDate=competition.startDate
+              competitionEndDate=competition.endDate
+              competitionName=competition.name
+              competitionID=1}}
           {{/each}}
           </tbody>
         </table>

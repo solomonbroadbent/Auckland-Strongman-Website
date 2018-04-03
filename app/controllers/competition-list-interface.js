@@ -1,14 +1,17 @@
 import Controller from '@ember/controller';
 
 export default Controller.extend({
+  // TODO: Refactor so that the component doesn't need to know of the store
+  store: Ember.inject.service('store'),
   inEditMode: false,
   notInEditMode: Ember.computed.not('inEditMode'),
   newCompetitionName: 'default name',
-  competitions: [{name: 'competition A', startDate: '15/11/1998', endDate: '18/03/2018'}, {
-    name: 'competition B',
-    startDate: "15/11/1998",
-    endDate: '564564'
-  }],
+  // I'm somewhat unsure of how this competitions property works; the solution was found at:
+  //  https://discuss.emberjs.com/t/access-store-inside-component/11182/3.
+  // TODO: Check property updates correctly
+  competitions: Ember.computed('', function () {
+    return this.get('store').findAll('competition');
+  }),
   actions: {
     toggleEditMode() {
       this.toggleProperty('inEditMode');
@@ -20,8 +23,6 @@ export default Controller.extend({
         scorerName: 'scorer name',
         days: [],
         athletes: [],
-        startDate: '1',
-        endDate: '1',
       }).save();
     }
   }
