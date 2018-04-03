@@ -1,7 +1,6 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  ID: DS.attr('number'),
   name: DS.attr('string'),
   refereeName: DS.attr('string'),
   scorerName: DS.attr('string'),

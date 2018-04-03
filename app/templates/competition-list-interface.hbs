@@ -35,14 +35,14 @@
               <div class="col-lg-6">
                 <div class=" input-group">
                   <span class="input-group-addon" id="basic-addon3">new competition name</span>
-                  <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                  {{input type='text' class='form-control' id='basic-url' value=newCompetitionName}}
                 </div>
               </div>
               <div class="col-lg-2">
                 Competition name
               </div>
               <div class="col-lg-offset-2 col-lg-2">
-                <button class="btn btn-default">
+                <button class="btn btn-default" {{action 'addNewCompetition'}}>
                   <span class="glyphicon glyphicon-plus"></span>
                 </button>
               </div>
