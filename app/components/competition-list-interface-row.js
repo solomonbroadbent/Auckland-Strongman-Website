@@ -22,6 +22,10 @@ export default Component.extend({
       // TODO: Figure out how to avoid root.deleted.inFlight error
       // TODO: Find the difference between destroyRecord3, destroy, deleteRecord, and delete functions
       this.get('storeReference').destroyRecord();
+    },
+    saveCompetitionName() {
+      // TODO: Check if the performance improves if checking if the reference isDirty first
+      this.get('storeReference').save();
     }
   }
 });

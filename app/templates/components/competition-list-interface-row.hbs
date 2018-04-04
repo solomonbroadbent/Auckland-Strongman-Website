@@ -3,7 +3,8 @@
     {{#if inEditMode}}
       <div class=" input-group">
         <span class="input-group-addon" id="basic-addon3">Competition Name</span>
-        {{input type="text" class="form-control" value=competitionName disabled=notInEditMode}}
+        {{input type="text" class="form-control" focus-out='saveCompetitionName' value=competitionName
+        disabled=notInEditMode}}
       </div>
     {{else}}
       {{competitionName}}
