@@ -8,6 +8,7 @@ export default Controller.extend({
   newCompetitionName: 'default name',
   // I'm somewhat unsure of how this competitions property works; the solution was found at:
   //  https://discuss.emberjs.com/t/access-store-inside-component/11182/3.
+  // Changing items via the FireBase console doesn't seem to sync with app. This may not be an issue however.
   // TODO: Check property updates correctly
   competitions: Ember.computed('', function () {
     return this.get('store').findAll('competition');
