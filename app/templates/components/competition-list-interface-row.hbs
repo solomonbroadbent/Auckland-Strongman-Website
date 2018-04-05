@@ -4,7 +4,7 @@
       <div class=" input-group">
         <span class="input-group-addon" id="basic-addon3">Competition Name</span>
         {{input type="text" class="form-control" focus-out='saveCompetitionName' value=competitionName
-        disabled=notInEditMode}}
+                disabled=notInEditMode}}
       </div>
     {{else}}
       {{competitionName}}
@@ -19,9 +19,11 @@
         <span class="glyphicon glyphicon-remove"></span>
       </button>
     {{else}}
-      <button class="btn btn-success pull-right" {{action 'sendUserToCompetition'}}>
+    {{! link-to 'data-entry-interface' storeReference.id sends the user to the data-entry-interface route.
+          storeReference.id is passed to the routing function in the params argument}}
+      {{#link-to 'data-entry-interface' storeReference.id class="btn btn-success pull-right" }}
         <span class="glyphicon glyphicon-log-in"></span>
-      </button>
+      {{/link-to}}
     {{/if}}
   </td>
 </tr>

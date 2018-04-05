@@ -9,7 +9,9 @@ const Router = EmberRouter.extend({
 Router.map(function() {
   this.route('scoreboard-interface');
   this.route('competition-list-interface');
-  this.route('data-entry-interface');
+  this.route('data-entry-interface', {
+    path: '/data-entry-interface/competition/:competition_ID'
+  });
 });
 
 export default Router;

@@ -15,9 +15,6 @@ export default Component.extend({
     toggleEditMode() {
       this.toggleProperty('inEditMode');
     },
-    sendUserToCompetition() {
-      alert(`sending user to edit competition: ${this.get('competitionID')}`)
-    },
     delete() {
       // TODO: Figure out how to avoid root.deleted.inFlight error
       // TODO: Find the difference between destroyRecord3, destroy, deleteRecord, and delete functions
