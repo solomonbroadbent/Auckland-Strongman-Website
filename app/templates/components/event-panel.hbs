@@ -1,0 +1,62 @@
+<div class="panel panel-default container-fluid">
+  <div class="panel-heading row">
+    <div class="col-lg-4">
+      <div class=" input-group">
+        <span class="input-group-addon" id="basic-addon3">Event name: {{event.name}}</span>
+        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3"
+               disabled={{notInEditMode}}>
+      </div>
+    </div>
+    <div class="col-lg-2">
+      Split
+    </div>
+    <div class="col-lg-offset-4 col-lg-2">
+      <button class="btn btn-default" {{action 'toggleDataEntryMode'}}>
+        <!-- The free glyphicon license somewhat ironically doesn't allow for the unlock symbol -->
+        <span class="glyphicon {{if inDataEntryMode 'glyphicon-check' 'glyphicon-edit'}}"></span>
+      </button>
+      {{#if inEditMode}}
+        <button class="btn btn-warning">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
+      {{/if}}
+    </div>
+  </div>
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th class="col-lg-4">
+        Athlete
+      </th>
+      <th class="col-lg-3">
+        Repetitions
+      </th>
+      <th class="col-lg-3">
+        Time in seconds
+      </th>
+      <th class="col-lg-2">
+        Points
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each event.records as |record|}}
+      <tr>
+        <th>
+          {{record.athlete.name}}
+        </th>
+        <td>
+          {{input type="text" class="form-control" disabled=notInDataEntryMode value=record.primaryResult.value}}
+        </td>
+        <td>
+          {{input type="text" class="form-control" disabled=notInDataEntryMode value=record.secondaryResult.value}}
+        </td>
+        <td>
+          {{input type="text" class="form-control" disabled=notInDataEntryMode value=record.points}}
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</div>
+{{yield}}
