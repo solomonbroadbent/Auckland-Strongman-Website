@@ -10,6 +10,6 @@ export default Component.extend({
     },
     saveCompetition() {
       this.get('competition').save();
-    }
+    },
   },
 });
