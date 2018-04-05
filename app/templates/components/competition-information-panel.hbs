@@ -18,7 +18,8 @@
         </span>
       </h4>
       <div class="input-lg">
-        <input type="text" class="form-control" disabled={{notInEditMode}}>
+        {{input type="text" class="form-control" focus-out='saveCompetition' value=competition.name
+                disabled=notInEditMode}}
       </div>
     </li>
     <li class="list-group-item">
@@ -36,7 +37,8 @@
         </span>
       </h4>
       <div class="input-lg">
-        <input type="text" class="form-control" disabled={{notInEditMode}}>
+        {{input type="text" class="form-control" focus-out='saveCompetition' value=competition.refereeName
+                disabled=notInEditMode}}
       </div>
     </li>
     <li class="list-group-item">
@@ -46,7 +48,8 @@
         </span>
       </h4>
       <div class="input-lg">
-        <input type="text" class="form-control" disabled={{notInEditMode}}>
+        {{input type="text" class="form-control" focus-out='saveCompetition' value=competition.scorerName
+                disabled=notInEditMode}}
       </div>
     </li>
   </ul>
