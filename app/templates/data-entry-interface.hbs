@@ -1,13 +1,15 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-2">
-      {{competition-information-panel competition=model}}
+    <div class="col-lg-4">
+      <div class="col-lg-12">
+        {{competition-information-panel competition=model}}
+      </div>
+      <div class="col-lg-12">
+        {{scoreboard-information-panel}}
+      </div>
     </div>
-    <div class="col-lg-7">
+    <div class="col-lg-8">
       {{event-information-panel}}
-    </div>
-    <div class="col-lg-3">
-      {{scoreboard-information-panel}}
     </div>
   </div>
 </div>
