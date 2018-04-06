@@ -16,7 +16,7 @@ export default DS.Model.extend({
     async: true,
     // I'm pretty sure setting the inverse to null here means the athletes can belong to other competitions as well.
     //  https://stackoverflow.com/questions/25693518/ember-understanding-inverse-relationships
-    inverse: null,
+    inverse: this,
   }),
   startDate: Ember.computed('days', function () {
     return 'start date';

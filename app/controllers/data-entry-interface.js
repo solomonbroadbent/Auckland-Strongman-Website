@@ -3,40 +3,58 @@ import Controller from '@ember/controller';
 export default Controller.extend({
   store: Ember.inject.service('store'),
   actions: {
-    setupDatabase(competition) {
-      let day = this.store.createRecord('day', {
+    async setupDatabase(competition) {
+      let day = await this.store.createRecord('day', {
         competition: competition,
         number: 123,
       });
-      competition.get('days').addObject(day).then();
-      day.save().then(competition.save());
-      /*let event = this.store.createRecord('event', {
+      await competition.get('days').addObject(day);
+      await day.save();
+
+      let event = await this.store.createRecord('event', {
         name: 'event 1',
         type: 'split',
         day: day,
-      });*/
-      /*let athlete = this.store.createRecord('athlete', {
+      });
+      await event.save();
+      await day.get('events').addObject(event);
+
+      let athlete = await this.store.createRecord('athlete', {
         name: 'athlete 1',
         weight: 100,
         competition: competition,
       });
-      let primaryResult = this.store.createRecord('result', {
+      await athlete.save();
+      await competition.get('athletes').addObject(athlete);
+
+      /*let record = await this.store.create('record', {
+        athlete: athlete,
+        points: 1,
+        event: event,
+      });
+      await record.save();
+      await event.get('records').addObject(record);
+
+      let primaryResult = await this.store.createRecord('result', {
         value: 10,
         unit: 'kilograms',
         record: record,
       });
-      let secondaryResult = this.store.createRecord('result', {
+      await primaryResult.save();
+      await record.set('primaryResult', primaryResult);
+
+      let secondaryResult = await this.store.createRecord('result', {
         value: 20,
         unit: 'seconds',
         record: record,
       });
-      let record = this.store.create('record', {
-        athlete: athlete,
-        primaryResult: primaryResult,
-        secondaryResult: secondaryResult,
-        points: 1,
-        event: event,
-      });*/
+      await secondaryResult.save();
+      await record.set('primaryResult', primaryResult);
+      await record.save();*/
+
+      await event.save();
+      await day.save();
+      await competition.save();
     }
   }
 });
