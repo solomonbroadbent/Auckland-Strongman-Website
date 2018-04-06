@@ -1,11 +1,11 @@
 import Route from '@ember/routing/route';
 
 export default Route.extend({
-  // TODO: Check the correct way to return multiple values from a model function 06/04/2018
-  model(params) {
-    let competition = this.store.findRecord('competition', params.competition_ID);
-    // TODO: Fix the ISSUE HERE where the days aren't being returned for some reason 06/04/2018
-    let days = competition.get('days');
+  // Marking the model function as asynchronous allows finding the nested records to be done using the await keyword
+  //  which avoids many nested callbacks
+  async model(params) {
+    let competition = await this.store.findRecord('competition', params.competition_ID);
+    let days = await competition.get('days');
     return {
       competition: competition,
       days: days,
