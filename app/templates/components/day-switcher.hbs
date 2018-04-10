@@ -4,7 +4,8 @@
       <button type="button" class="btn btn-default">
         {{day.number}}
         {{#if inEditMode}}
-          <span class="glyphicon glyphicon-remove" {{action 'deleteDay' day}}></span>
+          {{link-to 'data-entry-interface.day' competition.id day.id class='glyphicon glyphicon-remove'}}
+          <!--<span class="glyphicon glyphicon-remove"></span>-->
         {{/if}}
       </button>
     {{/each}}

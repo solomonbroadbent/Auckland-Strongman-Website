@@ -25,6 +25,5 @@ export default Component.extend({
       console.log(day);
       day.destroyRecord();
     },
-
   },
 });
