@@ -27,31 +27,44 @@ export default Controller.extend({
       await athlete.save();
       await competition.get('athletes').addObject(athlete);
 
-      /*let record = await this.store.create('record', {
-        athlete: athlete,
+      /*console.log(competition.id);
+      console.log(athlete.id);
+      console.log(competition);
+      console.log(athlete);
+      let ath = await this.store.findRecord('athlete', athlete.id);
+      console.log(ath);
+      debugger;
+      let rec = await this.store.findRecord('event', event.id);
+      let record = await this.store.createRecord('record', {
         points: 1,
-        event: event,
+        athlete: athlete,
+        primaryResult: null,
+        secondaryResult: null,
+        event: null,
       });
-      await record.save();
-      await event.get('records').addObject(record);
+      await record.save();*/
 
-      let primaryResult = await this.store.createRecord('result', {
+      /*let primaryResult = await this.store.createRecord('result', {
         value: 10,
         unit: 'kilograms',
         record: record,
       });
       await primaryResult.save();
-      await record.set('primaryResult', primaryResult);
+      /!*await this.store.findRecord('record', primaryResult.get('id')).then(function (record) {
+        record.set('primaryResult', primaryResult);
+      });*!/
 
-      let secondaryResult = await this.store.createRecord('result', {
+      /!*let secondaryResult = await this.store.createRecord('result', {
         value: 20,
         unit: 'seconds',
         record: record,
       });
-      await secondaryResult.save();
-      await record.set('primaryResult', primaryResult);
-      await record.save();*/
 
+      await event.get('records').addObject(record);
+      await record.save();
+      await secondaryResult.save();
+      await record.set('secondaryResult', secondaryResult);
+      await record.save();*!/*/
       await event.save();
       await day.save();
       await competition.save();
