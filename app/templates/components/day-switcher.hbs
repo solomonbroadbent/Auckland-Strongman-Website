@@ -4,7 +4,7 @@
       <button type="button" class="btn btn-default">
         {{day.number}}
         {{#if inEditMode}}
-          <span class="glyphicon glyphicon-remove"></span>
+          <span class="glyphicon glyphicon-remove" {{action 'deleteDay' day}}></span>
         {{/if}}
       </button>
     {{/each}}

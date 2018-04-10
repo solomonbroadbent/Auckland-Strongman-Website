@@ -21,5 +21,10 @@ export default Component.extend({
       competition.get('days').addObject(day);
       day.save().then(competition.save());
     },
+    deleteDay(day) {
+      console.log(day);
+      day.destroyRecord();
+    },
+
   },
 });
