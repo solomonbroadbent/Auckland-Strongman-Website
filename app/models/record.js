@@ -1,18 +1,17 @@
 import DS from 'ember-data';
 
 export default DS.Model.extend({
-  athlete: DS.attr('athlete', {
-    async: true,
+  athlete: DS.belongsTo('athlete', {
     inverse: null,
   }),
-  primaryResult: DS.attr('result', {
-    async: true,
-    inverse: this,
+  primaryResult: DS.belongsTo('result', {
+    inverse: null,
   }),
-  secondaryResult: DS.attr('result', {
-    async: true,
-    inverse: this,
+  secondaryResult: DS.belongsTo('result', {
+    inverse: null,
   }),
   points: DS.attr('number'),
-  event: DS.belongsTo('event'),
+  event: DS.belongsTo('event', {
+    inverse: null,
+  }),
 });

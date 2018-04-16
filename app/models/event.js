@@ -4,8 +4,9 @@ export default DS.Model.extend({
   name: DS.attr('string'),
   type: DS.attr('string'),
   records: DS.hasMany('record', {
-    async: true,
-    inverse: this,
+    inverse: null,
   }),
-  day: DS.belongsTo('day'),
+  day: DS.belongsTo('day', {
+    inverse: null,
+  }),
 });

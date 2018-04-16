@@ -4,8 +4,9 @@ export default DS.Model.extend({
   date: DS.attr('date'),
   number: DS.attr('number'),
   events: DS.hasMany('events', {
-    async: true,
-    inverse: this,
+    inverse: null,
   }),
-  competition: DS.belongsTo('competition'),
+  competition: DS.belongsTo('competition', {
+    inverse: null,
+  }),
 });
