@@ -9,7 +9,8 @@ export default Controller.extend({
         number: 123,
       });
       await competition.get('days').addObject(day);
-      await day.save();
+      // await day.save();
+      await competition.save();
 
       let event = await this.store.createRecord('event', {
         name: 'event 1',
@@ -18,6 +19,7 @@ export default Controller.extend({
       });
       await event.save();
       await day.get('events').addObject(event);
+      await day.save();
 
       let athlete = await this.store.createRecord('athlete', {
         name: 'athlete 1',
@@ -27,47 +29,36 @@ export default Controller.extend({
       await athlete.save();
       await competition.get('athletes').addObject(athlete);
 
-      /*console.log(competition.id);
-      console.log(athlete.id);
-      console.log(competition);
-      console.log(athlete);
-      let ath = await this.store.findRecord('athlete', athlete.id);
-      console.log(ath);
-      debugger;
-      let rec = await this.store.findRecord('event', event.id);
+      let primaryResult = await this.store.createRecord('result', {
+        value: 10,
+        unit: 'kilograms',
+        result: null,
+      });
+      await primaryResult.save();
+
+      let secondaryResult = await this.store.createRecord('result', {
+        value: 20,
+        unit: 'seconds',
+        result: null,
+      });
+      await secondaryResult.save();
+
       let record = await this.store.createRecord('record', {
         points: 1,
         athlete: athlete,
-        primaryResult: null,
-        secondaryResult: null,
-        event: null,
+        primaryResult: await primaryResult,
+        secondaryResult: await secondaryResult,
+        event: event,
       });
-      await record.save();*/
-
-      /*let primaryResult = await this.store.createRecord('result', {
-        value: 10,
-        unit: 'kilograms',
-        record: record,
-      });
-      await primaryResult.save();
-      /!*await this.store.findRecord('record', primaryResult.get('id')).then(function (record) {
-        record.set('primaryResult', primaryResult);
-      });*!/
-
-      /!*let secondaryResult = await this.store.createRecord('result', {
-        value: 20,
-        unit: 'seconds',
-        record: record,
-      });
-
-      await event.get('records').addObject(record);
       await record.save();
+      await primaryResult.set('record', record);
+      await primaryResult.save();
+      await secondaryResult.set('record', record);
       await secondaryResult.save();
-      await record.set('secondaryResult', secondaryResult);
-      await record.save();*!/*/
+      await event.get('records').addObject(record);
       await event.save();
-      await day.save();
+
       await competition.save();
-    }
+    },
   }
 });
