@@ -3,20 +3,20 @@
     <div class="col-lg-4">
       <div class=" input-group">
         <span class="input-group-addon" id="basic-addon3">Event name:</span>
-        <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value={{event.name}}
-               disabled={{notInEditMode}}>
+        {{input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value=eventName
+          disabled=notInDataEntryMode}}
       </div>
     </div>
     <div class="col-lg-2">
-      Split
+      {{event.type}}
     </div>
     <div class="col-lg-offset-4 col-lg-2">
       <button class="btn btn-default" {{action 'toggleDataEntryMode'}}>
         <!-- The free glyphicon license somewhat ironically doesn't allow for the unlock symbol -->
         <span class="glyphicon {{if inDataEntryMode 'glyphicon-check' 'glyphicon-edit'}}"></span>
       </button>
-      {{#if inEditMode}}
-        <button class="btn btn-warning">
+      {{#if inDataEntryMode}}
+        <button class="btn btn-warning" {{action 'delete'}}>
           <span class="glyphicon glyphicon-remove"></span>
         </button>
       {{/if}}
@@ -46,13 +46,15 @@
           {{record.athlete.name}}
         </th>
         <td>
-          {{input type="text" class="form-control" disabled=notInDataEntryMode value=record.primaryResult.value}}
+          {{input type="text" class="form-control" disabled=notInDataEntryMode value=record.primaryResult.value
+                  focus-out='save'}}
         </td>
         <td>
-          {{input type="text" class="form-control" disabled=notInDataEntryMode value=record.secondaryResult.value}}
+          {{input type="text" class="form-control" disabled=notInDataEntryMode value=record.secondaryResult.value
+                  focus-out='save'}}
         </td>
         <td>
-          {{input type="text" class="form-control" disabled=notInDataEntryMode value=record.points}}
+          {{input type="text" class="form-control" disabled=notInDataEntryMode value=record.points focus-out='save'}}
         </td>
       </tr>
     {{/each}}
