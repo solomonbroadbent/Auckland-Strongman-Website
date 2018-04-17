@@ -19,7 +19,6 @@ export default Component.extend({
     },
     save() {
       // TODO: Change to the style seen in competition-list-interface-row for saving the name
-      alert(this.get('eventName'));
       this.get('event').set('name', this.get('eventName'));
       this.get('event').save();
     },
