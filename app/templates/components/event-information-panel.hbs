@@ -11,12 +11,11 @@
     <!-- New event sub-panel -->
     {{#if inEditMode}}
       {{event-panel-new}}
-      {{event-panel}}
     {{/if}}
     <!-- Event sub-panels -->
     <!-- TODO: try heading changing to inline forms -->
     {{#each day.events as |event|}}
-      {{event-panel event=event}}
+      {{event-panel event=event inEditMode=inEditMode}}
     {{/each}}
   </div>
 </div>
