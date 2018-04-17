@@ -3,7 +3,7 @@ import Component from '@ember/component';
 export default Component.extend({
   selectedEventTypeTagName: 'mostWeight',
   eventName: 'New Event Name',
-  events: [],
+  // events: [],
   eventTypes: [
     {tagName: 'mostWeight', name: 'Most Weight',},
     {tagName: 'furthestDistance', name: 'Furthest Distance',},
@@ -30,6 +30,9 @@ export default Component.extend({
     let newEventName = this.get('selectedEventName');
     return (newEventName !== null) && (newEventName !== undefined);
   }),
+
+  day: undefined,
+  store: Ember.inject.service('store'),
   actions: {
     setSelectedEventType(eventTagName) {
       //TODO: Find a way to implement this with just a function instead of a computed property
@@ -37,12 +40,21 @@ export default Component.extend({
       this.set('selectedEventTypeTagName', eventTagName);
       // if (this.get('selectedEventTypeTagNameIsValid') === true) this.set('selectedEventTypeTagName', eventTagName);
     },
-    addNewEvent() {
+    async addNewEvent() {
+      debugger;
       if (this.get('newEventIsReady') === true) {
-        this.get('events').pushObject({
-          name: this.get('eventName'),
-          type: this.get('selectedEventName'),
+        let day = await this.get('day');
+        let newEvent = await this.get('store').createRecord('event', {
+          name: await this.get('eventName'),
+          type: await this.get('selectedEventName'),
+          // day: await day,
         });
+        // await newEvent.save();
+        console.log(await day.get('events'));
+        console.log(newEvent);
+        // FIXME: The  Attempted to register a view with an id already in use: basic-url bug is here
+        await day.get('events').addObject(await newEvent);
+        await day.save();
       }
     }
   },
