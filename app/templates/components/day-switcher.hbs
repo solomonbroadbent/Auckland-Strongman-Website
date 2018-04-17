@@ -1,12 +1,12 @@
 <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
   <div class="btn-group" role="group" aria-label="First group">
     {{#each days as |day|}}
-      <button type="button" class="btn btn-default">
+      {{#link-to 'data-entry-interface.day' day.id class="btn btn-default"}}
         {{day.number}}
         {{#if inEditMode}}
           <span class="glyphicon glyphicon-remove" {{action 'deleteDay' day}}></span>
         {{/if}}
-      </button>
+      {{/link-to}}
     {{/each}}
   </div>
   {{#if inEditMode}}

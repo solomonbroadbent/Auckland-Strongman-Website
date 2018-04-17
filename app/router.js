@@ -11,6 +11,10 @@ Router.map(function() {
   this.route('competition-list-interface');
   this.route('data-entry-interface', {
     path: '/data-entry-interface/competition/:competition_ID'
+  }, function() {
+    this.route('day', {
+      path: '/day/:day_ID'
+    });
   });
 });
 
