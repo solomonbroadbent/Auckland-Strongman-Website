@@ -4,7 +4,7 @@
       <div class=" input-group">
         <span class="input-group-addon" id="basic-addon3">Event name:</span>
         {{input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value=eventName
-          disabled=notInDataEntryMode}}
+                disabled=notInDataEntryMode}}
       </div>
     </div>
     <div class="col-lg-2">
@@ -41,22 +41,12 @@
     </thead>
     <tbody>
     {{#each event.records as |record|}}
-      <tr>
-        <th>
-          {{record.athlete.name}}
-        </th>
-        <td>
-          {{input type="text" class="form-control" disabled=notInDataEntryMode value=record.primaryResult.value
-                  focus-out='save'}}
-        </td>
-        <td>
-          {{input type="text" class="form-control" disabled=notInDataEntryMode value=record.secondaryResult.value
-                  focus-out='save'}}
-        </td>
-        <td>
-          {{input type="text" class="form-control" disabled=notInDataEntryMode value=record.points focus-out='save'}}
-        </td>
-      </tr>
+      {{event-panel-record
+        inDataEntryMode=inDataEntryMode
+        primaryResultValue=record.primaryResult.value
+        secondaryResultValue=record.secondaryResult.value
+        recordPoints=record.points
+        record=record}}
     {{/each}}
     </tbody>
   </table>
