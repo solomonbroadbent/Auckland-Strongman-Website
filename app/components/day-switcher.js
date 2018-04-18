@@ -20,6 +20,20 @@ export default Component.extend({
       let competition = this.get('competition');
       competition.get('days').addObject(day);
       day.save().then(competition.save());
+
+      /*let day = await this.get('store').createRecord('day', {
+          date: '15/11/1998',
+          competition: await this.get('competition'),
+        // Increment property increments the nextNumber and returns it in a prefix style manner
+        number: await this.incrementProperty('nextNumber'),
+      });
+      let competition = await this.get('competition');
+
+      console.log(await day);
+      console.log(await competition);
+
+      await competition.get('days').addObject(day);
+      await day.save().then(competition.save());*/
     },
     deleteDay(day) {
       console.log(day);
