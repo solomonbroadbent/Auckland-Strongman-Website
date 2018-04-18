@@ -14,8 +14,7 @@
     <tr>
       <th class="col-lg-6">Name</th>
       <th class="col-lg-4">Weight</th>
-      <th>Points</th>
-      <th>Placing</th>
+      <th class="col-lg-2"></th>
     </tr>
     </thead>
     <tbody>
@@ -30,8 +29,6 @@
             <span class="input-group-addon">kG</span>
           </div>
         </td>
-        <!-- This empty td tag exists to keep the table hovering and formatting correct -->
-        <td></td>
         <td>
           <button class="btn btn-default" {{action 'saveNewAthlete'}}>
             <span class="glyphicon-plus"></span>
@@ -45,11 +42,15 @@
         <!-- These empty td tags exist to keep the table hovering and formatting correct -->
         <td></td>
         <td></td>
-        <td></td>
       </tr>
     {{/if}}
-    {{#each rows as |row|}}
-      {{athlete-management-panel-row athlete = row.athlete points = row.points position = row.position }}
+    {{#each athletes as |athlete|}}
+      {{athlete-management-panel-row
+        athlete = athlete
+        athleteName = athlete.name
+        athleteWeight = athlete.weight
+        inEditMode = inEditMode
+      }}
     {{/each}}
     </tbody>
   </table>

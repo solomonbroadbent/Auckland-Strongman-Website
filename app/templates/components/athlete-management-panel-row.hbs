@@ -1,17 +1,18 @@
 <tr>
   <td>
-    {{input type="text" class="form-control" value=athlete.name disabled=notIndEditMode}}
+    {{input type="text" class="form-control" value=athleteName disabled=notInEditMode focus-out='saveAthlete'}}
   </td>
   <td>
     <div class="input-group">
-      {{input type="text" class="form-control" value=athlete.weight disabled=notInEditMode}}
+      {{input type="text" class="form-control" value=athleteWeight disabled=notInEditMode focus-out='saveAthlete'}}
       <span class="input-group-addon">kG</span>
     </div>
   </td>
   <td>
-    {{points}}
+    {{#if inEditMode}}
+      <button class="btn btn-warning" {{action 'deleteAthlete'}}>
+        <span class="glyphicon glyphicon-remove"></span>
+      </button>
+    {{/if}}
   </td>
-  <th>
-    {{position}}
-  </th>
 </tr>
