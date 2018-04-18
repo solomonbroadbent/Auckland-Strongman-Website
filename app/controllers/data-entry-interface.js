@@ -21,6 +21,15 @@ export default Controller.extend({
       await day.get('events').addObject(event);
       await day.save();
 
+      let event2 = await this.store.createRecord('event', {
+        name: 'event 2',
+        type: 'split',
+        day: day,
+      });
+      await event2.save();
+      await day.get('events').addObject(event2);
+      await day.save();
+
       let athlete = await this.store.createRecord('athlete', {
         name: 'athlete 1',
         weight: 100,
@@ -37,7 +46,21 @@ export default Controller.extend({
       await primaryResult.save();
 
       let secondaryResult = await this.store.createRecord('result', {
+        value: 1,
+        unit: 'seconds',
+        result: null,
+      });
+      await secondaryResult.save();
+
+      let primaryResult2 = await this.store.createRecord('result', {
         value: 20,
+        unit: 'kilograms',
+        result: null,
+      });
+      await primaryResult.save();
+
+      let secondaryResult2 = await this.store.createRecord('result', {
+        value: 2,
         unit: 'seconds',
         result: null,
       });
@@ -55,8 +78,25 @@ export default Controller.extend({
       await primaryResult.save();
       await secondaryResult.set('record', record);
       await secondaryResult.save();
+
+      let record2 = await this.store.createRecord('record', {
+        points: 2,
+        athlete: athlete,
+        primaryResult: await primaryResult2,
+        secondaryResult: await secondaryResult2,
+        event: event2,
+      });
+      await record2.save();
+      await primaryResult2.set('record', record2);
+      await primaryResult2.save();
+      await secondaryResult2.set('record', record2);
+      await secondaryResult2.save();
+
       await event.get('records').addObject(record);
       await event.save();
+
+      await event2.get('records').addObject(record2);
+      await event2.save();
 
       await competition.save();
     },
