@@ -48,18 +48,10 @@ export default Component.extend({
         type: await this.get('selectedEventName'),
         day: await day,
       });
-
-      console.log(newEvent);
-      console.log(day);
-
-      // FIXME: The  Attempted to register a view with an id already in use: basic-url bug is here in the
-      //  addObject function call
-      // I think day is the one coming from the route actually no the local one
       let events = await day.get('events');
-      alert(await events);
       await events.addObject(newEvent);
       await newEvent.save().then(day.save());
+      // }
     }
-    // }
   },
 });
