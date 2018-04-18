@@ -12,12 +12,12 @@ export default Component.extend({
     {tagName: 'split', name: 'Split',},
     {tagName: 'mostRepetitions', name: 'Most Repetitions'},
   ],
-  selectedEvent: Ember.computed('selectedEventTypeTagName', function() {
+  selectedEvent: Ember.computed('selectedEventTypeTagName', function () {
     return this.get('eventTypes').filter((event) => {
       if (event.tagName === (this.get('selectedEventTypeTagName'))) return event;
     })[0];
   }),
-  selectedEventName: Ember.computed('selectedEvent', function() {
+  selectedEventName: Ember.computed('selectedEvent', function () {
     return this.get('selectedEvent').name;
   }),
   selectedEventTypeTagNameIsValid: Ember.computed('selectedEventTypeTagName', function () {
@@ -26,7 +26,7 @@ export default Component.extend({
     let matchingEventType = eventTypes.filter(event => event.tagName === this.get('selectedEventTypeTagName')).map(e => e.tagName);
     return matchingEventType !== undefined;
   }),
-  newEventIsReady: Ember.computed('eventName', 'selectedEventTypeTagName', function() {
+  newEventIsReady: Ember.computed('eventName', 'selectedEventTypeTagName', function () {
     let newEventName = this.get('selectedEventName');
     return (newEventName !== null) && (newEventName !== undefined);
   }),
@@ -41,21 +41,19 @@ export default Component.extend({
       // if (this.get('selectedEventTypeTagNameIsValid') === true) this.set('selectedEventTypeTagName', eventTagName);
     },
     async addNewEvent() {
-      debugger;
-      if (this.get('newEventIsReady') === true) {
+      // if (this.get('newEventIsReady') === true) {
         let day = await this.get('day');
         let newEvent = await this.get('store').createRecord('event', {
           name: await this.get('eventName'),
           type: await this.get('selectedEventName'),
-          // day: await day,
+          day: await day,
         });
-        // await newEvent.save();
-        console.log(await day.get('events'));
-        console.log(newEvent);
-        // FIXME: The  Attempted to register a view with an id already in use: basic-url bug is here
-        await day.get('events').addObject(await newEvent);
+        await newEvent.save();
+        // FIXME: The  Attempted to register a view with an id already in use: basic-url bug is here in the
+        //  addObject function call
+        await day.get('events').then((events) => events.addObject(newEvent));
         await day.save();
       }
-    }
+    // }
   },
 });
