@@ -48,6 +48,31 @@ export default Component.extend({
         type: await this.get('selectedEventName'),
         day: await day,
       });
+      let athletes = await day.get('competition').then(competition => {
+        return competition.get('athletes');
+      });
+      // Adding every athlete to the event with empty records
+      athletes.forEach(async athlete => {
+        let store = await this.get('store');
+        let record = await store.createRecord('record', {
+          athlete: athlete,
+          points: 0,
+          event: newEvent,
+        });
+        let primaryResult = await store.createRecord('result', {
+          value: 100,
+          record: record,
+        });
+        let secondaryResult = await store.createRecord('result', {
+          record: record,
+        });
+        await record.set('primaryResult', primaryResult);
+        await record.set('secondaryResult', secondaryResult);
+        await newEvent.get('records').then(records => records.addObject(record));
+        record.save();
+        primaryResult.save();
+        secondaryResult.save();
+      });
       let events = await day.get('events');
       await events.addObject(newEvent);
       await newEvent.save().then(day.save());
