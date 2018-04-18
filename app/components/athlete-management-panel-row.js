@@ -18,6 +18,18 @@ export default Component.extend({
       await athlete.destroyRecord();
       athlete.save();
       competition.save();
+      // Delete all records for the athlete
+      let records = await this.get('store').findAll('record');
+      await records.forEach(record => {
+        console.log('RECORDS');
+        console.log(record);
+        record.get('athlete').then(athlete => console.log(athlete.id));
+        console.log(athlete.id);
+        if (record.get('athlete').id === athlete.id) {
+          record.destroyRecord();
+          record.save();
+        }
+      });
     },
     saveAthlete() {
       let athlete = this.get('athlete');
