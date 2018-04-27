@@ -18,7 +18,20 @@ export default Component.extend({
     delete() {
       // TODO: Figure out how to avoid root.deleted.inFlight error
       // TODO: Find the difference between destroyRecord3, destroy, deleteRecord, and delete functions
-      this.get('storeReference').destroyRecord();
+      let competition = this.get('storeReference');
+      competition.get('days').then(days => days.forEach(day => {
+        day.get('events').then(events => events.forEach(event => {
+          event.get('records').then(record => {
+            record.get('primaryResult').then(primaryResult => primaryResult.destroyRecord());
+            record.get('secondaryResult').then(secondaryResult => secondaryResult.destroyRecord());
+            event.destroyRecord();
+          });
+          event.destroyRecord();
+        }));
+        day.destroyRecord();
+      }));
+      competition.get('athletes').forEach(athlete => athlete.destroyRecord());
+      competition.destroyRecord();
     },
     saveCompetitionName() {
       // TODO: Check if the performance improves if checking if the reference isDirty first
