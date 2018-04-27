@@ -24,6 +24,8 @@ export default Component.extend({
             event.get('records').then(records => records.removeObject(record));
             event.save();
           });
+          record.get('primaryResult').then(primaryResult => primaryResult.destroyRecord());
+          record.get('secondaryResult').then(secondaryResult => secondaryResult.destroyRecord());
           record.destroyRecord();
           record.save();
         }
