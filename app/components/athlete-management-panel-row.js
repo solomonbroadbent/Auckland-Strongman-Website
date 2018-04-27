@@ -14,22 +14,25 @@ export default Component.extend({
       let competition = await athlete.get('competition').then((competition) => {
         return this.get('store').findRecord('competition', competition.id);
       });
-      await competition.get('athletes').removeObject(athlete);
-      await athlete.destroyRecord();
-      athlete.save();
-      competition.save();
       // Delete all records for the athlete
       let records = await this.get('store').findAll('record');
-      await records.forEach(record => {
-        console.log('RECORDS');
-        console.log(record);
-        record.get('athlete').then(athlete => console.log(athlete.id));
-        console.log(athlete.id);
-        if (record.get('athlete').id === athlete.id) {
+      await records.forEach(async record => {
+        let recordAthlete = await record.get('athlete');
+        if (recordAthlete == null) debugger;
+        if (recordAthlete.id === athlete.id) {
+          record.get('event').then(event => {
+            event.get('records').then(records => records.removeObject(record));
+            event.save();
+          });
           record.destroyRecord();
           record.save();
         }
       });
+      // Now the athlete can be deleted from the competition and from the database
+      await competition.get('athletes').removeObject(athlete);
+      await athlete.destroyRecord();
+      athlete.save();
+      competition.save();
     },
     saveAthlete() {
       let athlete = this.get('athlete');
