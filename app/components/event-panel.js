@@ -22,8 +22,13 @@ export default Component.extend({
       this.get('event').set('name', this.get('eventName'));
       this.get('event').save();
     },
-    delete() {
-      this.get('event').destroyRecord();
+    async delete() {
+      let event = await this.get('event');
+      await event.get('day').then(day => {
+        day.get('events').then(events => events.removeObject(event));
+        day.save();
+      });
+      event.destroyRecord();
     }
   },
 });
