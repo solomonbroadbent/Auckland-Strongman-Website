@@ -36,7 +36,10 @@ export default Component.extend({
       await day.save().then(competition.save());*/
     },
     deleteDay(day) {
-      console.log(day);
+      day.get('competition').then(competition => {
+        competition.get('days').removeObject(day);
+        competition.save();
+      });
       day.destroyRecord();
     },
 
