@@ -28,6 +28,12 @@ export default Component.extend({
         day.get('events').then(events => events.removeObject(event));
         day.save();
       });
+      // TODO: Refactor this to be more object oriented
+      event.get('records').then(records => records.forEach(record => {
+        record.get('primaryResult').then(primaryResult => primaryResult.destroyRecord());
+        record.get('secondaryResult').then(secondaryResult => secondaryResult.destroyRecord());
+        record.destroyRecord();
+      }));
       event.destroyRecord();
     }
   },
