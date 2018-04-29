@@ -5,12 +5,12 @@ export default Component.extend({
   eventName: 'New Event Name',
   // events: [],
   eventTypes: [
-    {tagName: 'mostWeight', name: 'Most Weight',},
-    {tagName: 'furthestDistance', name: 'Furthest Distance',},
-    {tagName: 'mostTime', name: 'Most Time',},
-    {tagName: 'leastTime', name: 'Least Time',},
-    {tagName: 'split', name: 'Split',},
-    {tagName: 'mostRepetitions', name: 'Most Repetitions'},
+    {tagName: 'mostWeight', name: 'Most Weight', shortUnits: 'kG', longUnits: 'Kilograms'},
+    {tagName: 'furthestDistance', name: 'Furthest Distance', shortUnits: 'cM', longUnits: 'Centimeters'},
+    {tagName: 'mostTime', name: 'Most Time', shortUnits: 'S', longUnits: 'Seconds'},
+    {tagName: 'leastTime', name: 'Least Time', shortUnits: 'S', longUnits: 'Seconds'},
+    {tagName: 'split', name: 'Split'},
+    {tagName: 'mostRepetitions', name: 'Most Repetitions', shortUnits: 'R', longUnits: 'Repetitions'},
   ],
   selectedEvent: Ember.computed('selectedEventTypeTagName', function () {
     return this.get('eventTypes').filter((event) => {
