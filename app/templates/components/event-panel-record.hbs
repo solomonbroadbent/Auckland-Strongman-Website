@@ -6,10 +6,12 @@
     {{input type="text" class="form-control" disabled=notInDataEntryMode value=primaryResultValue
             focus-out='save'}}
   </td>
-  <td>
-    {{input type="text" class="form-control" disabled=notInDataEntryMode value=secondaryResultValue
-            focus-out='save'}}
-  </td>
+  {{#if isSplitEvent}}
+    <td>
+      {{input type="text" class="form-control" disabled=notInDataEntryMode value=secondaryResultValue
+              focus-out='save'}}
+    </td>
+  {{/if}}
   <td>
     {{input type="text" class="form-control" disabled=notInDataEntryMode value=recordPoints focus-out='save'}}
   </td>

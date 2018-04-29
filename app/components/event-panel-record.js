@@ -9,6 +9,8 @@ export default Component.extend({
   secondaryResultValue: undefined,
   recordPoints: undefined,
   record: undefined,
+  event: undefined,
+  isSplitEvent: undefined,
   actions: {
     async save() {
       let record = await this.get('record');

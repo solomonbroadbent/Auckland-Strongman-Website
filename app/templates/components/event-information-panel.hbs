@@ -19,7 +19,7 @@
       <!-- TODO: Figure out what is weird here compared to competition-list-interface.hbs each loop and
         components/competition-list-interface-row.js for saving event types. Possibly the difference in the way the
         store references are passed is causing the differences in how it needs to be saved -->
-      {{event-panel event=event inEditMode=inEditMode eventName=event.name}}
+      {{event-panel event=event eventType=event.type inEditMode=inEditMode eventName=event.name}}
     {{/each}}
   </div>
 </div>

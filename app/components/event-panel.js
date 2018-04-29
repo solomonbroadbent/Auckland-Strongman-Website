@@ -7,6 +7,26 @@ export default Component.extend({
   inDataEntryMode: false,
   notInDataEntryMode: Ember.computed.not('inDataEntryMode'),
   event: undefined,
+  eventType: Ember.observer('event', (event) => event.type),
+  isSplitEvent: Ember.computed('eventType', function () {
+    return this.get('eventType') === 'Split';
+  }),
+  eventPrimaryUnit: Ember.computed('eventType', function() {
+    switch (this.get('eventType')) {
+      case 'Split':
+        return 'Repetitions';
+      case 'Most Repetitions':
+        return 'Repetitions';
+      case 'Most Weight':
+        return 'Kilograms';
+      case 'Furthest Distance':
+        return 'Centimeters';
+      case 'Least Time':
+        return 'Seconds';
+      case 'Most Time':
+        return 'Seconds';
+    }
+  }),
   // Model properties
   eventName: undefined,
   actions: {

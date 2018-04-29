@@ -27,13 +27,22 @@
     <tr>
       <th class="col-lg-4">
         Athlete
+        {{eventType}}
+        {{isSplitEvent}}
+        {{eventPrimaryUnit}}
       </th>
-      <th class="col-lg-3">
-        Repetitions
-      </th>
-      <th class="col-lg-3">
-        Time in seconds
-      </th>
+      {{#if isSplitEvent}}
+        <th class="col-lg-3">
+          {{eventPrimaryUnit}}
+        </th>
+        <th class="col-lg-3">
+          Time in seconds
+        </th>
+      {{else}}
+        <th class="col-lg-6">
+          {{eventPrimaryUnit}}
+        </th>
+      {{/if}}
       <th class="col-lg-2">
         Points
       </th>
@@ -46,7 +55,9 @@
         primaryResultValue=record.primaryResult.value
         secondaryResultValue=record.secondaryResult.value
         recordPoints=record.points
-        record=record}}
+        record=record
+        event=event
+        isSplitEvent=isSplitEvent}}
     {{/each}}
     </tbody>
   </table>
