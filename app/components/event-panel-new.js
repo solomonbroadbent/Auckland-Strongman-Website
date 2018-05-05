@@ -60,7 +60,7 @@ export default Component.extend({
           event: newEvent,
         });
         let primaryResult = await store.createRecord('result', {
-          value: 100,
+          value: 0,
           record: record,
         });
         let secondaryResult = await store.createRecord('result', {

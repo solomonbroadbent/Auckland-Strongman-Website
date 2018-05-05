@@ -36,14 +36,14 @@ export default Component.extend({
             });
             if (shouldAddARecordForAthlete) {
               let primaryResult = await store.createRecord('result', {
-                value: 10,
+                value: 0,
                 unit: 'kilograms',
                 result: null,
               });
               await primaryResult.save();
 
               let secondaryResult = await store.createRecord('result', {
-                value: 1,
+                value: 0,
                 unit: 'seconds',
                 result: null,
               });
