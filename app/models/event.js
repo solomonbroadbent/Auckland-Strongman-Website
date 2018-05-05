@@ -7,6 +7,7 @@ export default DS.Model.extend({
   shortPrimaryUnitName: DS.attr('string'),
   longSecondaryUnitName: DS.attr('string'),
   shortSecondaryUnitName: DS.attr('string'),
+  splitRepetitionsTarget: DS.attr('number'),
   records: DS.hasMany('record', {
     inverse: null,
   }),

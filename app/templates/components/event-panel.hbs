@@ -4,13 +4,22 @@
       <div class=" input-group">
         <span class="input-group-addon">Event name:</span>
         {{input type="text" class="form-control" value=eventName
-                disabled=notInDataEntryMode}}
+                disabled=notInDataEntryMode focus-out='save'}}
       </div>
     </div>
     <div class="col-lg-2">
       {{event.type}}
     </div>
-    <div class="col-lg-offset-4 col-lg-2">
+    {{#if isSplitEvent}}
+      <div class="col-lg-4">
+        <div class=" input-group">
+          <span class="input-group-addon">Repetitions:</span>
+          {{input type="text" class="form-control" value=event.splitRepetitionsTarget
+                  disabled=notInDataEntryMode focus-out='save'}}
+        </div>
+      </div>
+    {{/if}}
+    <div class="col-lg-2">
       <button class="btn btn-default" {{action 'toggleDataEntryMode'}}>
         <!-- The free glyphicon license somewhat ironically doesn't allow for the unlock symbol -->
         <span class="glyphicon {{if inDataEntryMode 'glyphicon-check' 'glyphicon-edit'}}"></span>

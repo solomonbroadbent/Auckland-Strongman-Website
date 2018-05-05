@@ -53,6 +53,7 @@ export default Component.extend({
         shortPrimaryUnitName: await eventUnitsObject.shortUnits,
         longSecondaryUnitName: await eventUnitsObject.longSecondaryUnits,
         shortSecondaryUnitName: await eventUnitsObject.shortSecondaryUnits,
+        splitRepetitionsTarget: 0,
       });
       let athletes = await day.get('competition').then(competition => {
         return competition.get('athletes');
