@@ -1,4 +1,5 @@
 import Component from '@ember/component';
+import result from "../models/result";
 
 export default Component.extend({
   store: Ember.inject.service('store'),
@@ -59,41 +60,40 @@ export default Component.extend({
     async updateScores() {
       let store = this.get('store');
       let event = this.get('event');
-      // alert(event.id);
-      await event.get('records').then(async records => {
-        let array = await new Array();
-        let map = new Map();
-        // alert(array);
-        // alert(map);
-        let index = 0;
-        records.forEach(async record => {
-          // alert(record.id);
-          const athlete = await record.get('athlete');
-          // alert(athlete.id);
-          const primaryResult = await record.get('primaryResult');
+      await event.get('records').then(records => {
+        let uniqueScoresToRecordIdSets = new Map();
+        // Creating the map
+        records.forEach(record => {
+          const athlete = record.get('athlete');
+          const primaryResult = record.get('primaryResult');
           const primaryResultId = primaryResult.id;
-          // alert(primaryResultId);
-          const primaryResultValue = await primaryResult.get('value');
-          // alert(primaryResultValue);
-          array[index++] = {
-            key: record.id,
-            value: Number(primaryResultValue),
-          };
-          // TODO: This should be moved outside
-          await array.sort((a, b) => {
-            return b.value - a.value;
-          });
-          // For ... of needs to be used instead of forEach as per: https://stackoverflow.com/questions/37576685/using-async-await-with-a-foreach-loop
-          // TODO: This desperately needs to be moved outside as it is getting fired n times!
-          let availablePoints = await array.length;
-          for (let item of array) {
-            let record = await store.findRecord('record', item.key);
-            // then() must be used as the availablePoints need to be updated every time
-            await record.set('points', availablePoints);
-            await availablePoints--;
-            await record.save();
+          const primaryResultValue = primaryResult.get('value');
+          let subSet = uniqueScoresToRecordIdSets.get(primaryResultValue);
+          if (subSet !== undefined && subSet.size > 0) {
+            subSet.add(record.id);
+            uniqueScoresToRecordIdSets.set(primaryResultValue, subSet);
           }
+          else uniqueScoresToRecordIdSets.set(primaryResultValue, new Set([record.id]));
         });
+        // Ordering the map with largest values first
+        uniqueScoresToRecordIdSets = new Map(Array.from(uniqueScoresToRecordIdSets).sort((a, b) => {
+          return b[0] - a[0];
+        }));
+        // Finding the total available points
+        let availablePoints = 0;
+        Array.from(uniqueScoresToRecordIdSets.values()).forEach(subSet => availablePoints += subSet.size);
+        // Setting the correct points for each record, accounting for draws
+        for (let recordIdSet of uniqueScoresToRecordIdSets) {
+          const recordIds = recordIdSet[1];
+          const amountOfRecord = recordIds.size;
+          let points = availablePoints / amountOfRecord;
+          availablePoints -= amountOfRecord;
+          recordIds.forEach(async recordId => {
+            let record = await store.findRecord('record', recordId);
+            await record.set('points', points);
+            await record.save();
+          });
+        }
       });
     }
   },
