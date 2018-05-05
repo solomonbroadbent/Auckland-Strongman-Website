@@ -49,6 +49,7 @@
     </tr>
     </thead>
     <tbody>
+    <button {{action 'updateScores'}} class='btn btn-success'>Update</button>
     {{#each event.records as |record|}}
       {{event-panel-record
         inDataEntryMode=inDataEntryMode

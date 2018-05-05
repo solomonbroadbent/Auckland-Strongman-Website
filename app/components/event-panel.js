@@ -11,7 +11,7 @@ export default Component.extend({
   isSplitEvent: Ember.computed('eventType', function () {
     return this.get('eventType') === 'Split';
   }),
-  eventPrimaryUnit: Ember.computed('eventType', function() {
+  eventPrimaryUnit: Ember.computed('eventType', function () {
     switch (this.get('eventType')) {
       case 'Split':
         return 'Repetitions';
@@ -55,6 +55,46 @@ export default Component.extend({
         record.destroyRecord();
       }));
       event.destroyRecord();
+    },
+    async updateScores() {
+      let store = this.get('store');
+      let event = this.get('event');
+      // alert(event.id);
+      await event.get('records').then(async records => {
+        let array = await new Array();
+        let map = new Map();
+        // alert(array);
+        // alert(map);
+        let index = 0;
+        records.forEach(async record => {
+          // alert(record.id);
+          const athlete = await record.get('athlete');
+          // alert(athlete.id);
+          const primaryResult = await record.get('primaryResult');
+          const primaryResultId = primaryResult.id;
+          // alert(primaryResultId);
+          const primaryResultValue = await primaryResult.get('value');
+          // alert(primaryResultValue);
+          array[index++] = {
+            key: record.id,
+            value: Number(primaryResultValue),
+          };
+          // TODO: This should be moved outside
+          await array.sort((a, b) => {
+            return b.value - a.value;
+          });
+          // For ... of needs to be used instead of forEach as per: https://stackoverflow.com/questions/37576685/using-async-await-with-a-foreach-loop
+          // TODO: This desperately needs to be moved outside as it is getting fired n times!
+          let availablePoints = await array.length;
+          for (let item of array) {
+            let record = await store.findRecord('record', item.key);
+            // then() must be used as the availablePoints need to be updated every time
+            await record.set('points', availablePoints);
+            await availablePoints--;
+            await record.save();
+          }
+        });
+      });
     }
   },
 });
