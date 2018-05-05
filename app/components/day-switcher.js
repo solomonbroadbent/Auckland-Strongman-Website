@@ -3,7 +3,7 @@ import Component from '@ember/component';
 export default Component.extend({
   // TODO: Refactor so that store injection isn't needed
   store: Ember.inject.service('store'),
-  days: Ember.computed('competition' ,function() {
+  days: Ember.computed('competition', function () {
     // return this.get('store').find('competition', this.get('competition').id).then((competition) => competition.days);
     return this.get('competition').get('days');
   }),
@@ -38,6 +38,14 @@ export default Component.extend({
     deleteDay(day) {
       day.get('competition').then(competition => {
         competition.get('days').removeObject(day);
+        day.get('events').then(events => events.forEach(event => {
+          event.get('records').then(records => records.forEach(record => {
+            record.get('primaryResult').then(primaryResult => primaryResult.destroyRecord());
+            record.get('secondaryResult').then(secondaryResult => secondaryResult.destroyRecord());
+            record.destroyRecord();
+          }));
+          event.destroyRecord();
+        }));
         competition.save();
       });
       day.destroyRecord();
