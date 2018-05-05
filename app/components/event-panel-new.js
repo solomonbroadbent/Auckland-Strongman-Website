@@ -9,7 +9,7 @@ export default Component.extend({
     {tagName: 'furthestDistance', name: 'Furthest Distance', shortUnits: 'cM', longUnits: 'Centimeters'},
     {tagName: 'mostTime', name: 'Most Time', shortUnits: 'S', longUnits: 'Seconds'},
     {tagName: 'leastTime', name: 'Least Time', shortUnits: 'S', longUnits: 'Seconds'},
-    {tagName: 'split', name: 'Split'},
+    {tagName: 'split', name: 'Split', shortUnits: 'R', longUnits: 'Repetitions', shortSecondaryUnits: 'S', longSecondaryUnits: 'Seconds'},
     {tagName: 'mostRepetitions', name: 'Most Repetitions', shortUnits: 'R', longUnits: 'Repetitions'},
   ],
   selectedEvent: Ember.computed('selectedEventTypeTagName', function () {
@@ -42,11 +42,17 @@ export default Component.extend({
     },
     async addNewEvent() {
       // if (this.get('newEventIsReady') === true) {
+      let type = await this.get('selectedEventName');
+      let eventUnitsObject = await this.get('eventTypes').filter(e => e.name === type)[0];
       let day = await this.get('day');
       let newEvent = await this.get('store').createRecord('event', {
         name: await this.get('eventName'),
         type: await this.get('selectedEventName'),
         day: await day,
+        longPrimaryUnitName: await eventUnitsObject.longUnits,
+        shortPrimaryUnitName: await eventUnitsObject.shortUnits,
+        longSecondaryUnitName: await eventUnitsObject.longSecondaryUnits,
+        shortSecondaryUnitName: await eventUnitsObject.shortSecondaryUnits,
       });
       let athletes = await day.get('competition').then(competition => {
         return competition.get('athletes');
@@ -62,9 +68,11 @@ export default Component.extend({
         let primaryResult = await store.createRecord('result', {
           value: 0,
           record: record,
+          unit: newEvent.shortPrimaryUnitName,
         });
         let secondaryResult = await store.createRecord('result', {
           record: record,
+          unit: newEvent.shortSecondaryUnitName,
         });
         await record.set('primaryResult', primaryResult);
         await record.set('secondaryResult', secondaryResult);
