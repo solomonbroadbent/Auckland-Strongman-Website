@@ -57,11 +57,81 @@ export default Component.extend({
       }));
       event.destroyRecord();
     },
-    async updateScores() {
+    updateScores() {
       let store = this.get('store');
       let event = this.get('event');
-      await event.get('records').then(records => {
+      const genericUpdateScores = (records, mapCreationFunction, orderingFunction) => {
+        const map = mapCreationFunction(records);
+        alert(map);
+        const orderedMap = orderingFunction(map);
+        // Finding the total available points
+        let availablePoints = 0;
+        Array.from(orderedMap.values()).forEach(subSet => availablePoints += subSet.size);
+        // Setting the correct points for each record, accounting for draws
+        for (let recordIdSet of orderedMap) {
+          const recordIds = recordIdSet[1];
+          const amountOfRecord = recordIds.size;
+          let points = availablePoints / amountOfRecord;
+          availablePoints -= amountOfRecord;
+          recordIds.forEach(async recordId => {
+            let record = await store.findRecord('record', recordId);
+            await record.set('points', points);
+            await record.save();
+          });
+        }
+      };
+
+      const nonSplitMapCreationFunction = records => {
         let uniqueScoresToRecordIdSets = new Map();
+        records.forEach(record => {
+          const primaryResult = record.get('primaryResult');
+          const primaryResultValue = primaryResult.get('value');
+          let subSet = uniqueScoresToRecordIdSets.get(primaryResultValue);
+          if (subSet !== undefined && subSet.size > 0) {
+            subSet.add(record.id);
+            uniqueScoresToRecordIdSets.set(primaryResultValue, subSet);
+          }
+          else uniqueScoresToRecordIdSets.set(primaryResultValue, new Set([record.id]));
+        });
+        return uniqueScoresToRecordIdSets;
+      };
+
+      const splitMapCreationFunction = records => {
+        return null;
+      };
+
+      const splitStyleUpdateScores = records => {
+        const splitMapOrderingFunction = unorderedMap => {
+          return null;
+        };
+        genericUpdateScores(records, splitMapCreationFunction, splitMapOrderingFunction);
+      };
+
+      const maximumStyleUpdateScores = records => {
+        const maximumOrderingFunction = unorderedMap => {
+          alert(unorderedMap);
+          return new Map(Array.from(unorderedMap).sort((a, b) => {
+            return b[0] - a[0];
+          }));
+        };
+        genericUpdateScores(records, nonSplitMapCreationFunction, maximumOrderingFunction);
+      };
+
+      const minimumStyleUpdateScores = records => {
+        genericUpdateScores(records, nonSplitMapCreationFunction, unorderedMap => {
+          return new Map(Array.from(unorderedMap).sort((a, b) => {
+            return a[0] - b[0];
+          }));
+        });
+      };
+
+      event.get('records').then(records => {
+        const eventType = event.get('type');
+        let updatingFunction = maximumStyleUpdateScores;
+        if (eventType === 'Split') updatingFunction = splitStyleUpdateScores;
+        else if (eventType === 'Least Time') updatingFunction = minimumStyleUpdateScores;
+        updatingFunction(records);
+        /*let uniqueScoresToRecordIdSets = new Map();
         // Creating the map
         records.forEach(record => {
           const athlete = record.get('athlete');
@@ -93,7 +163,7 @@ export default Component.extend({
             await record.set('points', points);
             await record.save();
           });
-        }
+        }*/
       });
     }
   },
