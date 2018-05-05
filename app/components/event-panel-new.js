@@ -58,7 +58,7 @@ export default Component.extend({
         return competition.get('athletes');
       });
       // Adding every athlete to the event with empty records
-      athletes.forEach(async athlete => {
+      await athletes.forEach(async athlete => {
         let store = await this.get('store');
         let record = await store.createRecord('record', {
           athlete: athlete,
@@ -68,11 +68,12 @@ export default Component.extend({
         let primaryResult = await store.createRecord('result', {
           value: 0,
           record: record,
-          unit: newEvent.shortPrimaryUnitName,
+          unit: eventUnitsObject.shortPrimaryUnitName,
         });
         let secondaryResult = await store.createRecord('result', {
+          value: 0,
           record: record,
-          unit: newEvent.shortSecondaryUnitName,
+          unit: eventUnitsObject.shortSecondaryUnitName,
         });
         await record.set('primaryResult', primaryResult);
         await record.set('secondaryResult', secondaryResult);
