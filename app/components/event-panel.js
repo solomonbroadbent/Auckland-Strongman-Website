@@ -62,7 +62,6 @@ export default Component.extend({
       let event = this.get('event');
       const genericUpdateScores = (records, mapCreationFunction, orderingFunction) => {
         const map = mapCreationFunction(records);
-        alert(map);
         const orderedMap = orderingFunction(map);
         // Finding the total available points
         let availablePoints = 0;
@@ -109,7 +108,6 @@ export default Component.extend({
 
       const maximumStyleUpdateScores = records => {
         const maximumOrderingFunction = unorderedMap => {
-          alert(unorderedMap);
           return new Map(Array.from(unorderedMap).sort((a, b) => {
             return b[0] - a[0];
           }));
@@ -165,6 +163,6 @@ export default Component.extend({
           });
         }*/
       });
-    }
+    },
   },
 });

@@ -11,6 +11,7 @@ export default Component.extend({
   record: undefined,
   event: undefined,
   isSplitEvent: undefined,
+  eventPanel: undefined,
   actions: {
     async save() {
       let record = await this.get('record');
@@ -21,6 +22,7 @@ export default Component.extend({
       secondaryResult.set('value', await this.get('secondaryResultValue'));
       let secondaryResultSavePromise = secondaryResult.save();
       Promise.all([primaryResultSavePromise, secondaryResultSavePromise]).then(record.save());
+      this.get('eventPanel').send('updateScores');
     }
   }
 });
