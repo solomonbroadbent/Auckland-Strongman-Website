@@ -60,9 +60,21 @@ export default Component.extend({
     updateScores() {
       let store = this.get('store');
       let event = this.get('event');
-      const genericUpdateScores = (records, mapCreationFunction, orderingFunction) => {
+      const genericUpdateScores = (records, mapCreationFunction, orderingFunction, pointSettingFunction) => {
         const map = mapCreationFunction(records);
         const orderedMap = orderingFunction(map);
+        pointSettingFunction(orderedMap);
+      };
+
+      const splitPointSettingFunction = (orderedMap) => {
+        let availablePoints = 0;
+        console.log(orderedMap);
+        for (let set of orderedMap) {
+          console.log(set);
+        }
+      };
+
+      const nonSplitPointSettingFunction = (orderedMap) => {
         // Finding the total available points
         let availablePoints = 0;
         Array.from(orderedMap.values()).forEach(subSet => availablePoints += subSet.size);
@@ -96,14 +108,45 @@ export default Component.extend({
       };
 
       const splitMapCreationFunction = records => {
-        return null;
+        let uniqueValuePairsToRecordIdSets = new Map();
+        // At this stage, the primary result value is always the repetitions while the secondary result value is
+        //  always the seconds
+        records.forEach(record => {
+          const primaryResult = record.get('primaryResult');
+          const primaryResultValue = primaryResult.get('value');
+          const secondaryResult = record.get('secondaryResult');
+          const secondaryResultValue = secondaryResult.get('value');
+          // A key generator is required as objects can't be directly compared as keys easily
+          const keyGenerator = (primaryResultValue, secondaryResultValue) => {
+            return `{"primaryResultValue": ${primaryResultValue}, "secondaryResultValue": ${secondaryResultValue}}`;
+          };
+          let recordIdSet = uniqueValuePairsToRecordIdSets.get(keyGenerator(primaryResultValue, secondaryResultValue));
+          if (recordIdSet !== undefined && recordIdSet.size > 0) {
+            // This is the very unlikely event that two athletes completed the same amount of repetitions in the
+            //   exact same amount of time
+            recordIdSet.add(record.id);
+          }
+          else uniqueValuePairsToRecordIdSets.set(keyGenerator(primaryResultValue, secondaryResultValue), new Set([record.id]));
+        });
+        return uniqueValuePairsToRecordIdSets;
       };
 
       const splitStyleUpdateScores = records => {
         const splitMapOrderingFunction = unorderedMap => {
-          return null;
+          console.log(unorderedMap);
+          let orderedMap = new Map(Array.from(unorderedMap).sort((a, b) => {
+            let aParse = JSON.parse(a[0]);
+            let bParse = JSON.parse(b[0]);
+            console.log(a, aParse, b, bParse);
+            if (aParse.primaryResultValue === bParse.primaryResultValue) {
+              return aParse.secondaryResultValue - bParse.secondaryResultValue;
+            }
+            else {
+              return bParse.primaryResultValue - aParse.primaryResultValue;
+            }
+          }));
         };
-        genericUpdateScores(records, splitMapCreationFunction, splitMapOrderingFunction);
+        genericUpdateScores(records, splitMapCreationFunction, splitMapOrderingFunction, splitPointSettingFunction);
       };
 
       const maximumStyleUpdateScores = records => {
@@ -112,7 +155,7 @@ export default Component.extend({
             return b[0] - a[0];
           }));
         };
-        genericUpdateScores(records, nonSplitMapCreationFunction, maximumOrderingFunction);
+        genericUpdateScores(records, nonSplitMapCreationFunction, maximumOrderingFunction, nonSplitPointSettingFunction);
       };
 
       const minimumStyleUpdateScores = records => {
@@ -120,7 +163,7 @@ export default Component.extend({
           return new Map(Array.from(unorderedMap).sort((a, b) => {
             return a[0] - b[0];
           }));
-        });
+        }, nonSplitPointSettingFunction);
       };
 
       event.get('records').then(records => {
