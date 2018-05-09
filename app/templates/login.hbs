@@ -1,0 +1,23 @@
+<div class="col-lg-offset-2 col-lg-8">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Login
+    </div>
+    <form class="panel-body form-group">
+      <div class="input-group">
+        <span class="input-group-addon">Email address</span>
+        <input type="text" class="form-control" placeholder="Email address">
+      </div>
+      <br/>
+      <div class="input-group">
+        <span class="input-group-addon">Password</span>
+        <input type="text" class="form-control" placeholder="Password">
+      </div>
+      <br/>
+      <button class="btn btn-success col-lg-12" {{action 'login'}}>
+        Login
+      </button>
+    </form>
+  </div>
+</div>
+{{outlet}}
