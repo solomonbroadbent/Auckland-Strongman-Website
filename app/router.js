@@ -8,7 +8,7 @@ const Router = EmberRouter.extend({
 
 Router.map(function () {
   // This base route doesn't seem to actually effect the application
-  this.route('/');
+  // this.route('/');
   this.route('scoreboard-interface');
   this.route('competition-list-interface');
   this.route('data-entry-interface', {

@@ -1,7 +1,10 @@
-import Route from '@ember/routing/route';
+import Ember from 'ember';
 
-export default Route.extend({
-  beforeModel() {
-    this.transitionTo('login');
-  }
+export default Ember.Route.extend({
+  session: Ember.inject.service(),
+  beforeModel: function () {
+    if(!this.get('session').get('isAuthenticated')){
+      this.transitionTo('login');
+    }
+  },
 });
