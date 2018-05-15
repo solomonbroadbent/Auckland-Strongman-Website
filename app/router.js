@@ -6,12 +6,14 @@ const Router = EmberRouter.extend({
   rootURL: config.rootURL
 });
 
-Router.map(function() {
+Router.map(function () {
+  // This base route doesn't seem to actually effect the application
+  this.route('/');
   this.route('scoreboard-interface');
   this.route('competition-list-interface');
   this.route('data-entry-interface', {
     path: '/data-entry-interface/competition/:competition_ID'
-  }, function() {
+  }, function () {
     this.route('day', {
       path: '/day/:day_ID'
     });
