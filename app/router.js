@@ -6,7 +6,7 @@ const Router = EmberRouter.extend({
   rootURL: config.rootURL
 });
 
-Router.map(function() {
+Router.map(function () {
   this.route('scoreboard-interface');
   this.route('competition-list-interface');
   this.route('data-entry-interface', {
@@ -16,6 +16,7 @@ Router.map(function() {
       path: '/day/:day_ID'
     });
   });
+  this.route('login');
 });
 
 export default Router;

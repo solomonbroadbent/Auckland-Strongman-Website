@@ -16,11 +16,15 @@ module.exports = function(environment) {
       messagingSenderId: '533895325095'
     },
 
+    torii: {
+      sessionServiceName: 'session',
+    },
+
     // if using ember-cli-content-security-policy
     contentSecurityPolicy: {
       'script-src': "'self' 'unsafe-eval' apis.google.com",
       'frame-src': "'self' https://*.firebaseapp.com",
-      'connect-src': "'self' wss://*.firebaseio.com https://*.googleapis.com"
+      'connect-src': "'self' wss://!*.firebaseio.com https://!*.googleapis.com"
     },
 
     EmberENV: {
