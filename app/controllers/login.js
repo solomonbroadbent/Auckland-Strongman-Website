@@ -3,14 +3,15 @@ import Ember from 'ember';
 
 export default Controller.extend({
   session: Ember.inject.service(),
-  // TODO: Check this updated correctly
-  /*isLogged: Ember.computed('model', function () {
-    return this.get('model');
-    // return true
-  })*/
   emailAddress: undefined,
   password: undefined,
-  areButtonsDisabled: false,
+  areButtonsDisabled: Ember.computed('emailAddress', 'password', function () {
+    const emailAddress = this.get('emailAddress');
+    const password = this.get('password');
+    const emailAddressFormatRegularExpression =
+      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    return password === undefined || password.length <= 0 || !emailAddressFormatRegularExpression.test(emailAddress);
+  }),
   isLoggedIn: Ember.computed('model', function () {
     return this.get('model');
   }),
