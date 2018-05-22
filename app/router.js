@@ -16,7 +16,6 @@ Router.map(function() {
       path: '/day/:day_ID'
     });
   });
-  this.route('login');
 });
 
 export default Router;
