@@ -6,19 +6,25 @@ export default Ember.Route.extend({
     return this.get('session').fetch().catch(function () {
     });
   },
+  model: function () {
+    let session = this.get('session');
+    return session.get('isAuthenticated');
+  },
   actions: {
-    signIn: function () {
-      debugger;
+    signIn: function (emailAddress, password) {
+      let controller = this.controller;
       this.get('session').open('firebase', {
         provider: 'password',
-        email: 'a@a.com',
-        password: '123456'
+        email: emailAddress,
+        password: password,
       }).then(function (data) {
         console.log(data.currentUser);
+        controller.set('isLoggedIn', true);
       });
     },
     signOut: function () {
       this.get('session').close();
+      this.controller.set('isLoggedIn', false);
     }
   }
 });

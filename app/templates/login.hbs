@@ -1,22 +1,28 @@
 <div class="col-lg-offset-2 col-lg-8">
   <div class="panel panel-default">
     <div class="panel-heading">
-      Login
+      Authentication
     </div>
     <form class="panel-body form-group">
-      <div class="input-group">
-        <span class="input-group-addon">Email address</span>
-        <input type="text" class="form-control" placeholder="Email address">
-      </div>
-      <br/>
-      <div class="input-group">
-        <span class="input-group-addon">Password</span>
-        <input type="text" class="form-control" placeholder="Password">
-      </div>
-      <br/>
-      <button class="btn btn-success col-lg-12" {{action 'signIn'}}>
-        Login
-      </button>
+      {{#if isLoggedIn}}
+        <button class="btn btn-warning col-lg-12" {{action 'signOut'}}>
+          Logout
+        </button>
+      {{else}}
+        <div class="input-group">
+          <span class="input-group-addon">Email address</span>
+          {{input value=emailAddress type="text" class="form-control" placeholder="Email address"}}
+        </div>
+        <br/>
+        <div class="input-group">
+          <span class="input-group-addon">Password</span>
+          {{input value=password type="text" class="form-control" placeholder="Password"}}
+        </div>
+        <br/>
+        <button class="btn btn-success col-lg-12" {{action 'signIn' emailAddress password}}>
+          Login
+        </button>
+      {{/if}}
     </form>
   </div>
 </div>
