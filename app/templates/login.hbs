@@ -19,7 +19,8 @@
           {{input value=password type="text" class="form-control" placeholder="Password"}}
         </div>
         <br/>
-        <button class="btn btn-success col-lg-12" {{action 'signIn' emailAddress password}}>
+        <button class="btn btn-success col-lg-12" {{action 'signIn' emailAddress password}}
+                disabled={{areButtonsDisabled}}>
           Login
         </button>
       {{/if}}

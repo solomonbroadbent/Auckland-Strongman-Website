@@ -10,6 +10,7 @@ export default Controller.extend({
   })*/
   emailAddress: undefined,
   password: undefined,
+  areButtonsDisabled: false,
   isLoggedIn: Ember.computed('model', function () {
     return this.get('model');
   }),

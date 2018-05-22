@@ -20,7 +20,9 @@ export default Ember.Route.extend({
       }).then(function (data) {
         console.log(data.currentUser);
         controller.set('isLoggedIn', true);
+        controller.set('areButtonsDisabled', false);
       });
+      controller.set('areButtonsDisabled', true);
     },
     signOut: function () {
       this.get('session').close();
