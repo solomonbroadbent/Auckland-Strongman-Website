@@ -18,9 +18,11 @@ export default Ember.Route.extend({
         email: emailAddress,
         password: password,
       }).then(function (data) {
-        console.log(data.currentUser);
         controller.set('isLoggedIn', true);
         controller.set('areButtonsDisabled', false);
+      }).catch((error) => {
+        if (error.code === 'auth/wrong-password') controller.set('areButtonsDisabled', false);
+        else throw error;
       });
       controller.set('areButtonsDisabled', true);
     },
